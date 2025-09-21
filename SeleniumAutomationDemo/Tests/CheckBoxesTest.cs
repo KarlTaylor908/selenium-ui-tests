@@ -7,22 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SeleniumAutomationDemo.Utilities;
+using SeleniumAutomationDemo.Pages;
 
 namespace SeleniumAutomationDemo.Tests
 {
-    public class CheckBoxes : TestBase
+    public class CheckBoxesTest : TestBase
     {
+        private CheckBox checkBoxPage;
+
         [SetUp]
         public void SetUp()
         {
-            wait.Until(ExpectedConditions.ElementIsVisible(By.LinkText("Checkboxes"))).Click();
+            checkBoxPage = new CheckBox(driver,wait);
+            checkBoxPage.GotoCheckBoxPage();
         }
 
         [Test]
        public void CheckBoxTest()
         {
-          IWebElement checkBox1 =  wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("#checkboxes > input[type=checkbox]:nth-child(1)")));
-            //IWebElement checkBox2 = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("#checkboxes > input[type=checkbox]:nth-child(2)")));
+          IWebElement checkBox1 =  wait.Until(ExpectedConditions.ElementIsVisible(checkBoxPage.checkBox1));
 
             checkBox1.Click();
 
@@ -34,7 +37,7 @@ namespace SeleniumAutomationDemo.Tests
         [Test]
         public void UnCheckBox2Test()
         {      
-            IWebElement checkBox2 = wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector("#checkboxes > input[type=checkbox]:nth-child(3)")));
+            IWebElement checkBox2 = wait.Until(ExpectedConditions.ElementIsVisible(checkBoxPage.checkBox2));
 
            checkBox2.Click(); 
             

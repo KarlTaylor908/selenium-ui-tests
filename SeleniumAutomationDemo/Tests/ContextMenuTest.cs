@@ -8,27 +8,32 @@ using System.Text;
 using System.Threading.Tasks;
 using SeleniumAutomationDemo.Utilities;
 using OpenQA.Selenium.Interactions;
+using SeleniumAutomationDemo.Pages;
 
 namespace SeleniumAutomationDemo.Tests
 {
-    public class ContextMenu : TestBase
+     
+    public class ContextMenuTest :TestBase
     {
+        private ContextMenu contextMenuPage;
+
         [SetUp]
         public void SetUp()
         {
-            wait.Until(ExpectedConditions.ElementIsVisible(By.LinkText("Context Menu"))).Click();
+            contextMenuPage = new ContextMenu(driver, wait);
+            contextMenuPage.GoToContextMenuPage();
         }
+
         [Test]
-        public void ContextMenuTest()
+        public void AlertShow()
         {
             Actions actions = new Actions(driver);
 
-            IWebElement  box= wait.Until(ExpectedConditions.ElementIsVisible(By.Id("hot-spot")));
+            IWebElement  box= wait.Until(ExpectedConditions.ElementIsVisible(contextMenuPage.box));
             actions.ContextClick(box).Perform();
 
             string alert = driver.SwitchTo().Alert().Text;
-            //IWebElement alert = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("#content > script")));
-
+            
             Assert.That(alert, Is.Not.Null,"Message not showing");
             Assert.That(alert, Is.EqualTo("You selected a context menu"), "Message not correct");
 
