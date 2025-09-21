@@ -20,12 +20,7 @@ namespace SeleniumAutomationDemo.Utilities
         {
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
-
-
-            driver.Navigate().GoToUrl("https://the-internet.herokuapp.com/");
-
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-
         }
 
         [OneTimeTearDown]
