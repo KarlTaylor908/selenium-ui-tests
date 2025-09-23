@@ -33,7 +33,7 @@ namespace SeleniumAutomationDemo.Utilities
         public void OneTimeTearDown()
         {
             driver.Dispose();
-            driver.Close();
+            driver.Quit();
         }
     }
 }
