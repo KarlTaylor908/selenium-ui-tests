@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SeleniumAutomationDemo.Tests
 {
+    [TestFixture]
     public class ChallengingDOMTest : TestBase
     {
         private ChallengingDoms challengingDOMPage;

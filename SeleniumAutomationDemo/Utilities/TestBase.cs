@@ -18,8 +18,14 @@ namespace SeleniumAutomationDemo.Utilities
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            driver = new ChromeDriver();
+            var options = new ChromeOptions();
+            options.AddArgument("--headless=new");
+            options.AddArgument("--no-sandbox");
+            options.AddArgument("--disable-dev-shm-usage");
+            options.AddArgument("--window-size=1920,1080");
+            driver = new ChromeDriver(options);
             driver.Manage().Window.Maximize();
+  ;
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
         }
 

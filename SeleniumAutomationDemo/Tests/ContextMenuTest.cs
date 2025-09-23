@@ -12,7 +12,7 @@ using SeleniumAutomationDemo.Pages;
 
 namespace SeleniumAutomationDemo.Tests
 {
-     
+    [TestFixture]
     public class ContextMenuTest :TestBase
     {
         private ContextMenu contextMenuPage;

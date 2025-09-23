@@ -5,6 +5,7 @@ using SeleniumExtras.WaitHelpers;
 
 namespace SeleniumAutomationDemo.Tests
 {
+    [TestFixture]
     public class HomePageTest :TestBase
     {
         private HomePage homePage;
