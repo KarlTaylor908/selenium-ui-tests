@@ -13,7 +13,7 @@ namespace SeleniumAutomationDemo.Pages
     {
         public BrokenImage(IWebDriver _driver, WebDriverWait _wait) : base(_driver, _wait) { }
 
-        private By brokenImageButton = By.LinkText("Broken Images");
+        private static readonly By brokenImageButton = By.LinkText("Broken Images");
 
         public By brokenImage1 = By.CssSelector("#content > div > img:nth-child(2)");
         public By brokenImage2 = By.CssSelector("#content > div > img:nth-child(3)");
@@ -25,7 +25,7 @@ namespace SeleniumAutomationDemo.Pages
         {
             HomePage home = new HomePage(driver, wait);
             home.OpenHomePage();
-            wait.Until(ExpectedConditions.ElementIsVisible(brokenImageButton)).Click();
+            wait.Until(ExpectedConditions.ElementToBeClickable(brokenImageButton)).Click();
         }
 
     }

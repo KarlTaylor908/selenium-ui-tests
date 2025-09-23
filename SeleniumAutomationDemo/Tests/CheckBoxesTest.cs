@@ -11,6 +11,7 @@ using SeleniumAutomationDemo.Pages;
 
 namespace SeleniumAutomationDemo.Tests
 {
+    [TestFixture]
     public class CheckBoxesTest : TestBase
     {
         private CheckBox checkBoxPage;
