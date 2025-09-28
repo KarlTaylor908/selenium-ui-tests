@@ -30,7 +30,6 @@ namespace SeleniumAutomationDemo.Tests
            int elementCount = driver.FindElements(addRemoveElement.element).Count;
 
             Assert.That(elementCount == 10, "There are not 10 elements");
-
         }
     }
 }
