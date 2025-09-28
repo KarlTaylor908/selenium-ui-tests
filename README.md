@@ -7,7 +7,7 @@ Features:
 - Test execution with NUnit
 - Easy-to-extend test framework
 - Page Object Model (POM)
-- Paraell tests
+- Parallel tests
 
 Target site: **https://the-internet.herokuapp.com/**
 
