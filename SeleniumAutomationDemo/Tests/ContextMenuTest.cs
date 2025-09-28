@@ -32,7 +32,7 @@ namespace SeleniumAutomationDemo.Tests
             IWebElement  box= wait.Until(ExpectedConditions.ElementIsVisible(contextMenuPage.box));
             actions.ContextClick(box).Perform();
 
-            string alert = driver.SwitchTo().Alert().Text;
+            var alert = driver.SwitchTo().Alert().Text;
             
             Assert.That(alert, Is.Not.Null,"Message not showing");
             Assert.That(alert, Is.EqualTo("You selected a context menu"), "Message not correct");
