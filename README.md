@@ -1,4 +1,4 @@
-# SeleniumAutomationDemoApp
+# Selenium UI Tests
 - This project contains automated UI Tests using Selenium Web Driver and NUnit for a demo web application. 
 
 Features:
