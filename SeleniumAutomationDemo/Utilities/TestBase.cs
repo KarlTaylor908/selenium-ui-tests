@@ -25,7 +25,7 @@ namespace SeleniumAutomationDemo.Utilities
             options.AddArgument("--window-size=1920,1080");
             driver = new ChromeDriver(options);
             driver.Manage().Window.Maximize();
-  ;
+  
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
         }
 
