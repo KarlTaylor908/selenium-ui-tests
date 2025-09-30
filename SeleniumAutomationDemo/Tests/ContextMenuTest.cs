@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 using SeleniumAutomationDemo.Utilities;
 using OpenQA.Selenium.Interactions;
 using SeleniumAutomationDemo.Pages;
+using Allure.NUnit;
 
 namespace SeleniumAutomationDemo.Tests
 {
+    [AllureNUnit]
     [TestFixture]
     public class ContextMenuTest :TestBase
     {
