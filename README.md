@@ -24,7 +24,6 @@ Target site: **https://the-internet.herokuapp.com/**
 - pages/ # Page Object Model structure (POM)
 - tests/ # UI tests (.cs)
 - utilities/ # Test setup
-- 
 
 ## Instructions on Use
 ### 1) Prerequisite
