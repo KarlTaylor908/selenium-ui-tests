@@ -1,3 +1,4 @@
+using Allure.NUnit;
 using OpenQA.Selenium;
 using SeleniumAutomationDemo.Pages;
 using SeleniumAutomationDemo.Utilities;
@@ -5,6 +6,7 @@ using SeleniumExtras.WaitHelpers;
 
 namespace SeleniumAutomationDemo.Tests
 {
+    [AllureNUnit]
     [TestFixture]
     public class HomePageTest :TestBase
     {

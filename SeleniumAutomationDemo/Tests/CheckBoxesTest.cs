@@ -8,9 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using SeleniumAutomationDemo.Utilities;
 using SeleniumAutomationDemo.Pages;
+using Allure.NUnit;
 
 namespace SeleniumAutomationDemo.Tests
 {
+    [AllureNUnit]
     [TestFixture]
     public class CheckBoxesTest : TestBase
     {
@@ -30,7 +32,7 @@ namespace SeleniumAutomationDemo.Tests
 
             checkBox1.Click();
 
-            Assert.That(checkBox1.Selected, Is.True);
+            Assert.That(checkBox1.Selected, Is.False);
     
 
         }
