@@ -28,7 +28,6 @@ namespace SeleniumAutomationDemo.Tests
             Assert.That(currentURL.Equals("https://the-internet.herokuapp.com/"),"URL is incorrect");
             Assert.That(title.Text.Equals("Welcome to the-internet"), "Title is not correct");
 
-
         }
     }
 }

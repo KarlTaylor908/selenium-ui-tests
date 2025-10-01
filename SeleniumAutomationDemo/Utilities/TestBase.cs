@@ -32,15 +32,9 @@ namespace SeleniumAutomationDemo.Utilities
             if(status ==NUnit.Framework.Interfaces.TestStatus.Failed)
             {
                 var file = ((ITakesScreenshot)driver).GetScreenshot();
-                string screenshot = file.AsBase64EncodedString;
                 byte[] screenshotAsByteArray = file.AsByteArray;
 
-                if (file is not null)
-                {
-                    TestContext.AddTestAttachment(screenshot, "failure screenshot");
-                    AllureApi.AddAttachment("Failure screenshot", "image/png", screenshotAsByteArray);
-                }
-
+                    AllureApi.AddAttachment("Failure screenshot", "image/png", screenshotAsByteArray, ".png");
        
             }
         }
