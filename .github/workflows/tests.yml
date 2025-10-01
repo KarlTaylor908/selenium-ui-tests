@@ -20,18 +20,6 @@ jobs:
             --logger "trx;LogFileName=TestResults.trx" \
             --logger "console;verbosity=detailed" \
             --results-directory TestResults
-      - name: Gather Allure results
-        if: always()
-        run: |
-         set -e
-          mkdir -p allure-results
-          FOUND=$(find . -type d -name "allure-results" | wc -l)
-          echo "Found $FOUND allure-results folder(s)"
-          find . -type d -name "allure-results" -exec sh -c 'echo ">> Copying from: $1"; cp -rv "$1"/* allure-results/ || true' _ {} \;
-          echo "Final contents of ./allure-results:"
-          ls -la allure-results || true
-          echo "Count of JSON files: $(ls allure-results/*.json 2>/dev/null | wc -l || true)"
-          echo "Count of PNG files:  $(ls allure-results/*.png  2>/dev/null | wc -l || true)"
       - name: Set up Java
         if: always()
         uses: actions/setup-java@v4
@@ -39,15 +27,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Generate Allure Report
+      - name: Generate Allure report (CLI)
         if: always()
         run: |
           set -e
           curl -L -o allure.zip https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.29.0/allure-commandline-2.29.0.zip
           unzip -q allure.zip -d allure-cli
           ./allure-cli/allure-2.29.0/bin/allure generate --clean allure-results -o allure-report
-          echo "Generated report contents:"
-          ls -la allure-report || true
+          echo "Generated report contents:" && ls -la allure-report || true
 
       - name: Upload Allure results
         if: always()
