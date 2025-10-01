@@ -35,7 +35,6 @@ namespace SeleniumAutomationDemo.Utilities
                 byte[] screenshotAsByteArray = file.AsByteArray;
 
                     AllureApi.AddAttachment("Failure screenshot", "image/png", screenshotAsByteArray, ".png");
-       
             }
         }
 
