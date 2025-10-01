@@ -20,18 +20,25 @@ jobs:
             --logger "trx;LogFileName=TestResults.trx" \
             --logger "console;verbosity=detailed" \
             --results-directory TestResults
+      - name: Gather Allure results
+        if: always()
+        run: |
+           mkdir -p allure-results
+            ind . -type d -name "allure-results" -exec cp -r {}/* allure-results/ \; || true
+            echo "Collected files:" && ls -la allure-results || true
+      - name: Generate Allure Report
+        if: always()
+        uses: simple-elf/allure-report-action@v1
+        with:
+         allure_results: 'allure-results'
+         allure_report: 'allure-report'
       - name: Upload Allure results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
-          path: '**/allure-results'
-      - name: Generate Allure Report
-        if: always()
-        uses: simple-elf/allure-report-action@v1
-        with:
-         allure_results: '**/allure-results'
-         allure_report: 'allure-report'
+          path: allure-results/**
+
       - name: Upload Allure HTML
         if: always()
         uses: actions/upload-artifact@v4
