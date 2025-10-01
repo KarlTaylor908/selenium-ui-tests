@@ -31,7 +31,7 @@ jobs:
         uses: simple-elf/allure-report-action@v1
         with:
          allure_results: '**/allure-results'
-        report_path: 'allure-report'
+         allure_report: 'allure-report'
       - name: Upload Allure HTML
         if: always()
         uses: actions/upload-artifact@v4
