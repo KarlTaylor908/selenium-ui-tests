@@ -33,7 +33,6 @@ namespace SeleniumAutomationDemo.Tests
             checkBox1.Click();
 
             Assert.That(checkBox1.Selected, Is.False);
-    
 
         }
 
