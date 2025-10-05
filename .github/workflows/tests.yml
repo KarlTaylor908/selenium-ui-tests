@@ -31,10 +31,15 @@ jobs:
         if: always()
         run: |
           set -e
-          curl -L -o allure.zip https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.29.0/allure-commandline-2.29.0.zip
-          unzip -q allure.zip -d allure-cli
-          ./allure-cli/allure-2.29.0/bin/allure generate --clean allure-results -o allure-report
-          echo "Generated report contents:" && ls -la allure-report || true
+          mkdir -p allure-results
+          echo "Searching for allure-results folders..."
+          find . -type d -name "allure-results" -print
+          echo "Copying contents..."
+          find . -type d -name "allure-results" -exec sh -c 'cp -rv "$1"/* allure-results/ || true' _ {} \;
+          echo "Final listing:"
+          ls -la allure-results || true
+          echo "JSON count: $(ls allure-results/*.json 2>/dev/null | wc -l || true)"
+          echo "PNG  count: $(ls allure-results/*.png  2>/dev/null | wc -l || true)"
 
       - name: Upload Allure results
         if: always()
