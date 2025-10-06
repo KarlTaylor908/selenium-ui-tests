@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace SeleniumAutomationDemo.Tests
 {
-    [AllureNUnit]
+   
     [TestFixture]
+    [AllureNUnit]
     public class AddRemoveElementsTest :TestBase
     {
         AddRemoveElement addRemoveElement;

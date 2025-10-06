@@ -13,8 +13,9 @@ using Allure.NUnit;
 
 namespace SeleniumAutomationDemo.Tests
 {
-    [AllureNUnit]
     [TestFixture]
+    [AllureNUnit]
+
     public class ContextMenuTest :TestBase
     {
         private ContextMenu contextMenuPage;

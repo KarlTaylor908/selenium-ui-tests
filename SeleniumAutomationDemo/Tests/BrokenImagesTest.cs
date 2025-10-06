@@ -12,8 +12,9 @@ using Allure.NUnit;
 
 namespace SeleniumAutomationDemo.Tests
 {
-    [AllureNUnit]
     [TestFixture]
+    [AllureNUnit]
+
     public class BrokenImagesTest : TestBase
     {
         private BrokenImage brokenImagePage;

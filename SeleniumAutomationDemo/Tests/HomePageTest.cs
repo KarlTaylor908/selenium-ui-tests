@@ -6,8 +6,9 @@ using SeleniumExtras.WaitHelpers;
 
 namespace SeleniumAutomationDemo.Tests
 {
-    [AllureNUnit]
     [TestFixture]
+    [AllureNUnit]
+
     public class HomePageTest :TestBase
     {
         private HomePage homePage;
