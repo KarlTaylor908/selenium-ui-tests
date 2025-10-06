@@ -27,7 +27,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Generate Allure report (CLI)
+      - name: Gather Allure results
         if: always()
         run: |
           set -e
@@ -41,16 +41,25 @@ jobs:
           echo "JSON count: $(ls allure-results/*.json 2>/dev/null | wc -l || true)"
           echo "PNG  count: $(ls allure-results/*.png  2>/dev/null | wc -l || true)"
 
+      - name: Generate Allure Report
+        if: always()
+        uses: simple-elf/allure-report-action@v1
+        with:
+          allure_results: 'allure-results'
+          allure_report: 'allure-report'
+      
       - name: Upload Allure results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
           path: allure-results/**
+          overwrite: true          
 
       - name: Upload Allure HTML
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure_results
-          path: allure-results
+         name: allure-report
+         path: allure-report
+         overwrite: true
