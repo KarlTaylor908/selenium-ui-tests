@@ -21,7 +21,7 @@ jobs:
             --logger "trx;LogFileName=TestResults.trx" \
             --logger "console;verbosity=detailed" \
             --results-directory TestResults
-`
+            
       - name: Gather Allure results
         if: always()
         run: |
