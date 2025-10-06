@@ -27,6 +27,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Check test summary
+        if: always()
+        run: |
+          echo "Looking for .trx..."
+          ls -la TestResults || true
+          echo "Summary line:"
+          grep -E "Total tests:" -n TestResults/*.trx || true
+          
       - name: Gather Allure results
         if: always()
         run: |
@@ -40,6 +48,7 @@ jobs:
           ls -la allure-results || true
           echo "JSON count: $(ls allure-results/*.json 2>/dev/null | wc -l || true)"
           echo "PNG  count: $(ls allure-results/*.png  2>/dev/null | wc -l || true)"
+
 
       - name: Generate Allure Report
         if: always()
