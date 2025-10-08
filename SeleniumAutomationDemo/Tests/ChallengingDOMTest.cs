@@ -1,5 +1,4 @@
-﻿using Allure.NUnit;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SeleniumAutomationDemo.Pages;
 using SeleniumAutomationDemo.Utilities;
 using SeleniumExtras.WaitHelpers;
@@ -12,8 +11,6 @@ using System.Threading.Tasks;
 namespace SeleniumAutomationDemo.Tests
 {
     [TestFixture]
-    [AllureNUnit]
-
     public class ChallengingDOMTest : TestBase
     {
         private ChallengingDoms challengingDOMPage;

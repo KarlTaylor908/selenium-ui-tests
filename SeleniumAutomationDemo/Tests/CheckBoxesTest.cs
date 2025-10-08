@@ -8,13 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using SeleniumAutomationDemo.Utilities;
 using SeleniumAutomationDemo.Pages;
-using Allure.NUnit;
 
 namespace SeleniumAutomationDemo.Tests
 {
     [TestFixture]
-    [AllureNUnit]
-
     public class CheckBoxesTest : TestBase
     {
         private CheckBox checkBoxPage;

@@ -21,35 +21,15 @@ jobs:
             --logger "trx;LogFileName=TestResults.trx" \
             --logger "console;verbosity=detailed" \
             --results-directory TestResults
-            
-      - name: Gather Allure results
-        if: always()
-        run: |
-          set -e
-          mkdir -p allure-results
-          find . -type d -name "allure-results" -exec sh -c 'cp -rv "$1"/* allure-results/ || true' _ {} \;
-          echo "JSON count: $(ls allure-results/*.json 2>/dev/null | wc -l || true)"
-
-
-      - name: Generate Allure Report
-        if: always()
-        uses: simple-elf/allure-report-action@v1
-        with:
-          allure_results: 'allure-results'
-          allure_report: 'allure-report'
-      
-      - name: Upload Allure results
+      - name: Upload Extent HTML
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results
-          path: allure-results/**
-          overwrite: true          
-
-      - name: Upload Allure HTML
+          name: extent-report
+          path: '**/TestResults/Extent/**'
+          overwrite: true
+      - name: Upload Pages artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-         name: allure-report
-         path: allure-report
-         overwrite: true
+          path: '**/TestResults/Extent'      

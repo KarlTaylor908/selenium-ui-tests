@@ -1,19 +1,24 @@
-﻿using Allure.Net.Commons;
-using Allure.NUnit;
+﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.DevTools.V137.DOM;
 using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumAutomationDemo.Utilities
 {
     public class TestBase
     {
+        private static ExtentReports _extent;
+        [ThreadStatic] private static ExtentTest test;
         protected IWebDriver driver;
         protected WebDriverWait wait;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
+
+
             var options = new ChromeOptions();
             options.AddArgument("--headless=new");
             options.AddArgument("--no-sandbox");
@@ -23,18 +28,52 @@ namespace SeleniumAutomationDemo.Utilities
             driver.Manage().Window.Maximize();
   
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+
+            var outDir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "TestResults", "Extent");
+            Directory.CreateDirectory(outDir);
+
+            var spark = new ExtentSparkReporter(Path.Combine(outDir, "index.html"));
+            _extent = new ExtentReports();
+            _extent.AttachReporter(spark);
+
+            var baseUrl =Environment.GetEnvironmentVariable("BASE_URL") ?? "https://the-internet.herokuapp.com/";
+            _extent.AddSystemInfo("Base URL", baseUrl);
+            _extent.AddSystemInfo("Browser", "Chrome");
+            _extent.AddSystemInfo("OS", Environment.OSVersion.ToString());
+            _extent.AddSystemInfo("Executed By", Environment.UserName);
+            _extent.AddSystemInfo("Machine Name", Environment.MachineName);
+            _extent.AddSystemInfo(".NET", Environment.Version.ToString());
+
+           test = _extent.CreateTest(TestContext.CurrentContext.Test.Name);
         }
 
         [TearDown]
         public void TearDown()
         {
             var status = TestContext.CurrentContext.Result.Outcome.Status;
-            if(status ==NUnit.Framework.Interfaces.TestStatus.Failed)
-            {
-                var file = ((ITakesScreenshot)driver).GetScreenshot();
-                byte[] screenshotAsByteArray = file.AsByteArray;
+            var dir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "TestResults", "Screenshots");
+            Directory.CreateDirectory(dir);
 
-                    AllureApi.AddAttachment("Failure screenshot", "image/png", screenshotAsByteArray, ".png");
+            if (status ==NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                dir = Path.Combine(dir, $"{TestContext.CurrentContext.Test.Name}_{DateTime.Now:yyyyMMdd_HHmmss}.png");
+
+                var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+                File.WriteAllBytes(dir, screenshot.AsByteArray);
+
+                test.Log(Status.Fail, "Test Failed").AddScreenCaptureFromPath(dir);
+            }
+            else if (status == NUnit.Framework.Interfaces.TestStatus.Passed)
+            {
+                test.Log(Status.Pass, "Test Passed");
+            }
+            else if (status == NUnit.Framework.Interfaces.TestStatus.Skipped)
+            {
+                test.Log(Status.Skip, "Test Skipped");
+            }
+            else
+            {
+                test.Log(Status.Warning, "Test had unexpected outcome");
             }
         }
 
