@@ -9,10 +9,12 @@ namespace SeleniumAutomationDemo.Utilities
 {
     public class TestBase
     {
-        private static ExtentReports _extent;
-        [ThreadStatic] private static ExtentTest test;
+        protected static ExtentReports _extent;
+        [ThreadStatic] protected static ExtentTest test;
         protected IWebDriver driver;
         protected WebDriverWait wait;
+        private static readonly object _lock = new();
+        private static bool _initialized;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -28,23 +30,33 @@ namespace SeleniumAutomationDemo.Utilities
             driver.Manage().Window.Maximize();
   
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            if (_initialized) return;
+            lock (_lock)
+            {
+                if (_initialized) return;
+                var outDir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "TestResults", "Extent");
+                Directory.CreateDirectory(outDir);
 
-            var outDir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "TestResults", "Extent");
-            Directory.CreateDirectory(outDir);
+                var spark = new ExtentSparkReporter(Path.Combine(outDir, "index.html"));
+                _extent = new ExtentReports();
+                _extent.AttachReporter(spark);
 
-            var spark = new ExtentSparkReporter(Path.Combine(outDir, "index.html"));
-            _extent = new ExtentReports();
-            _extent.AttachReporter(spark);
+                var baseUrl = Environment.GetEnvironmentVariable("BASE_URL") ?? "https://the-internet.herokuapp.com/";
+                _extent.AddSystemInfo("Base URL", baseUrl);
+                _extent.AddSystemInfo("Browser", "Chrome");
+                _extent.AddSystemInfo("OS", Environment.OSVersion.ToString());
+                _extent.AddSystemInfo("Executed By", Environment.UserName);
+                _extent.AddSystemInfo("Machine Name", Environment.MachineName);
+                _extent.AddSystemInfo(".NET", Environment.Version.ToString());
+                _initialized = true;
+            }
+       
+        }
 
-            var baseUrl =Environment.GetEnvironmentVariable("BASE_URL") ?? "https://the-internet.herokuapp.com/";
-            _extent.AddSystemInfo("Base URL", baseUrl);
-            _extent.AddSystemInfo("Browser", "Chrome");
-            _extent.AddSystemInfo("OS", Environment.OSVersion.ToString());
-            _extent.AddSystemInfo("Executed By", Environment.UserName);
-            _extent.AddSystemInfo("Machine Name", Environment.MachineName);
-            _extent.AddSystemInfo(".NET", Environment.Version.ToString());
-
-           test = _extent.CreateTest(TestContext.CurrentContext.Test.Name);
+        [SetUp]
+        public void Setup()
+        {
+            test = _extent.CreateTest(TestContext.CurrentContext.Test.Name);
         }
 
         [TearDown]
@@ -80,8 +92,10 @@ namespace SeleniumAutomationDemo.Utilities
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
+            _extent.Flush();
             driver.Dispose();
             driver.Quit();
+           
         }
     }
 }

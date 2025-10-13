@@ -15,6 +15,7 @@ namespace SeleniumAutomationDemo.Tests
         {
             homePage = new HomePage(driver,wait);
             homePage.OpenHomePage();
+
         }
         [Test]
         public void HomepageShowingTest()
