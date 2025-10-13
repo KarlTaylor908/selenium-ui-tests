@@ -1,4 +1,4 @@
-[![Selenium Tests](https://github.com/KarlTaylor908/selenium-ui-tests/actions/workflows/tests.yml/badge.svg)](https://github.com/KarlTaylor908/selenium-ui-tests/actions/workflows/tests.yml)
+[![Selenium Tests](https://github.com/KarlTaylor908/selenium-ui-tests/actions/workflows/tests.yml/badge.svg?branch=ExtentReportCI)](https://github.com/KarlTaylor908/selenium-ui-tests/actions/workflows/tests.yml)
 # Selenium UI Tests
 - This project contains automated UI Tests using Selenium Web Driver and NUnit for a demo web application. 
 
