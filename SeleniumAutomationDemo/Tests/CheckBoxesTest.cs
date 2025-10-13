@@ -40,12 +40,8 @@ namespace SeleniumAutomationDemo.Tests
             IWebElement checkBox2 = wait.Until(ExpectedConditions.ElementIsVisible(checkBoxPage.checkBox2));
 
            checkBox2.Click(); 
-            
-
-          
+                      
             Assert.That(checkBox2.Selected, Is.False);
-
-
 
         }
     }
