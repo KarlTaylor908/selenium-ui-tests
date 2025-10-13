@@ -25,6 +25,17 @@ Target site: **https://the-internet.herokuapp.com/**
 - tests/ # UI tests (.cs)
 - utilities/ # Test setup
 
+## Test Examples:
+Extent Report with a failed test:
+<img width="1074" height="593" alt="image" src="https://github.com/user-attachments/assets/a9f96393-e8e0-4caf-a6e6-daefc32e187c" />
+
+Screenshot taken on failure:
+<img width="1022" height="679" alt="image" src="https://github.com/user-attachments/assets/a0af547b-d98d-40fc-b025-5ed8f9ce74bf" />
+
+Dashboards of tests passing:
+<img width="1656" height="430" alt="image" src="https://github.com/user-attachments/assets/ae1f8efb-4ac0-4e1e-83b7-1fd5e5ed497f" />
+
+
 ## Instructions on Use
 ### 1) Prerequisite
 - .NET 8 SDK
@@ -35,5 +46,6 @@ Target site: **https://the-internet.herokuapp.com/**
 - dotnet build --configuration Release
 
 ### 3) Run Tests
-- Run tests in Visual Studio or use 
+- Run tests in Visual Studio or use
+
 
