@@ -39,7 +39,7 @@ jobs:
         if: always()
         uses: actions/upload-pages-artifact@v3
         with:
-        path: ${{ steps.locate_extent.outputs.dir }}        
+          path: ${{ steps.locate_extent.outputs.dir }}        
             
       - name: Upload Extent HTML
         if: always()
