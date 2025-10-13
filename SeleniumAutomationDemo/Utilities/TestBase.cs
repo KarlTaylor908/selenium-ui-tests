@@ -75,7 +75,7 @@ namespace SeleniumAutomationDemo.Utilities
                 File.WriteAllBytes(dir, screenshot.AsByteArray);
 
                 var b64 = screenshot.AsBase64EncodedString;
-                test.AddScreenCaptureFromBase64String(b64, "Failure Screenshot");
+                test.Fail("Test Failed",MediaEntityBuilder.CreateScreenCaptureFromBase64String(b64).Build());
 
                 
 
