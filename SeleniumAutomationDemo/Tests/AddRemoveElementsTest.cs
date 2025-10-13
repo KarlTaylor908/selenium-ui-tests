@@ -1,5 +1,4 @@
-﻿using Allure.NUnit;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SeleniumAutomationDemo.Pages;
 using SeleniumAutomationDemo.Utilities;
 using SeleniumExtras.WaitHelpers;
@@ -11,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace SeleniumAutomationDemo.Tests
 {
-    [AllureNUnit]
+   
     [TestFixture]
+
     public class AddRemoveElementsTest :TestBase
     {
         AddRemoveElement addRemoveElement;

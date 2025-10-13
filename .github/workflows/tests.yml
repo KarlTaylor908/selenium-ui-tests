@@ -14,28 +14,22 @@ jobs:
           dotnet-version: '8.0.x'
       - run: dotnet restore
       - run: dotnet build --configuration Release --no-restore
+      
       - name: Test (NUnit)
         run: |
           dotnet test --configuration Release --no-build \
             --logger "trx;LogFileName=TestResults.trx" \
             --logger "console;verbosity=detailed" \
             --results-directory TestResults
-      - name: Upload Allure results
+      - name: Upload Extent HTML
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results
-          path: '**/allure-results'
-      - name: Generate Allure Report
+          name: extent-report
+          path: '**/TestResults/Extent/**'
+          overwrite: true
+      - name: Upload Pages artifact
         if: always()
-        uses: simple-elf/allure-report-action@v1
+        uses: actions/upload-pages-artifact@v3
         with:
-         allure_results: '**/allure-results'
-        report_path: 'allure-report'
-
-      - name: Upload Allure HTML
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-report
-          path: allure-report
+          path: '**/TestResults/Extent'      
