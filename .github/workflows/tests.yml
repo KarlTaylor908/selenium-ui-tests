@@ -42,6 +42,6 @@ jobs:
           name: extent-report
           path: 
            | 
-            '**/TestResults/Extent/**'
+            **/TestResults/Extent/**
             **/TestResults/Screenshots/**      
           overwrite: true  
