@@ -21,15 +21,24 @@ jobs:
             --logger "trx;LogFileName=TestResults.trx" \
             --logger "console;verbosity=detailed" \
             --results-directory TestResults
+
+      - name: Locate Extent folder
+        id: locate_extent
+        if: always()
+        run: |
+          set -e
+          DIR=$(find . -type d -path "*/TestResults/Extent" | head -n1)
+          echo "Found: ${DIR:-<none>}"
+          if [ -z "$DIR" ]; then
+          echo "Extent folder not found. Did the run create index.html?"
+          exit 1
+          fi
+          echo "dir=$DIR" >> "$GITHUB_OUTPUT"
+
       - name: Upload Extent HTML
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: extent-report
           path: '**/TestResults/Extent/**'
-          overwrite: true
-      - name: Upload Pages artifact
-        if: always()
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '**/TestResults/Extent'      
+          overwrite: true  
