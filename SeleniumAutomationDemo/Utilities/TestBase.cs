@@ -74,6 +74,11 @@ namespace SeleniumAutomationDemo.Utilities
                 var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
                 File.WriteAllBytes(dir, screenshot.AsByteArray);
 
+                var b64 = screenshot.AsBase64EncodedString;
+                test.AddScreenCaptureFromBase64String(b64, "Failure Screenshot");
+
+                
+
                 test.Log(Status.Fail, "Test Failed").AddScreenCaptureFromPath(dir);
             }
             else if (status == NUnit.Framework.Interfaces.TestStatus.Passed)
