@@ -35,16 +35,13 @@ jobs:
           fi
           echo "dir=$DIR" >> "$GITHUB_OUTPUT"
 
-      - name: Upload Pages artifact
-        if: always()
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ${{ steps.locate_extent.outputs.dir }}        
-            
       - name: Upload Extent HTML
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: extent-report
-          path: '**/TestResults/Extent/**'
+          path: 
+           | 
+            '**/TestResults/Extent/**'
+            **/TestResults/Screenshots/**      
           overwrite: true  
