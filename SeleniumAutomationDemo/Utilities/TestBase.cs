@@ -63,8 +63,9 @@ namespace SeleniumAutomationDemo.Utilities
         public void TearDown()
         {
             var status = TestContext.CurrentContext.Result.Outcome.Status;
-            var dir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "TestResults", "Screenshots");
-            Directory.CreateDirectory(dir);
+            var dir = Path.Combine(TestContext.CurrentContext.WorkDirectory, "TestResults", "Extent");
+            var screenshotDir = Path.Combine(dir, "Screenshots").Replace("\\", "/");
+            Directory.CreateDirectory(screenshotDir);
 
             if (status ==NUnit.Framework.Interfaces.TestStatus.Failed)
             {
