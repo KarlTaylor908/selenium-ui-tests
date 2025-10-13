@@ -43,10 +43,7 @@ Dashboards of tests passing:
 - A browser and matching web driver
 
 ### 2) Run Tests
+Run tests in Visual Studio or use below:
 - dotnet restore
 - dotnet build --configuration Release
-
-### 3) Run Tests
-- Run tests in Visual Studio or use
-
 
